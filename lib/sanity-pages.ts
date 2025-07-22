@@ -61,17 +61,17 @@ export async function getHomepage(): Promise<SanityPage | null> {
   try {
     // Check if we're in draft mode
     const { isEnabled } = await draftMode()
-    console.log('🔍 Draft mode status:', isEnabled)
+    // console.log('🔍 Draft mode status:', isEnabled)
     
     if (isEnabled) {
       // When in draft mode, use authenticated client with stega enabled
-      console.log('🔍 Fetching with auth client, token exists:', !!process.env.SANITY_API_TOKEN)
+      // console.log('🔍 Fetching with auth client, token exists:', !!process.env.SANITY_API_TOKEN)
       
       try {
         // First, let's test a simple query to see if auth works
         const testQuery = `*[_type == "page"][0]._id`
         const testResult = await sanityClientAuth.fetch(testQuery)
-        console.log('🔍 Test query result:', testResult)
+        // console.log('🔍 Test query result:', testResult)
         
         const page = await sanityClientAuth.fetch(
           query, 
@@ -84,8 +84,8 @@ export async function getHomepage(): Promise<SanityPage | null> {
         console.log('✅ Homepage fetched with stega encoding:', page?._id)
         return page || null
       } catch (authError) {
-        console.error('🔍 Auth client error:', authError)
-        console.error('🔍 Error details:', authError instanceof Error ? authError.message : 'Unknown error')
+        // console.error('🔍 Auth client error:', authError)
+        // console.error('🔍 Error details:', authError instanceof Error ? authError.message : 'Unknown error')
         
         // Fallback to regular fetch with stega
         try {

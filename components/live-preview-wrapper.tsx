@@ -39,14 +39,11 @@ export function LivePreviewWrapper({ children, enabled }: LivePreviewWrapperProp
     
     window.addEventListener('focus', handleFocus)
     
-    // Set up auto-refresh interval for live updates (every 2 seconds)
-    const interval = setInterval(handleRefresh, 2000)
-    
     // Cleanup
     return () => {
       window.removeEventListener('message', handleMessage)
       window.removeEventListener('focus', handleFocus)
-      clearInterval(interval)
+      // clearInterval(interval)
     }
   }, [enabled, router])
   

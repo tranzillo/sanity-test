@@ -43,6 +43,7 @@ export default {
         { type: 'trustedPartners' },
         { type: 'threeUpGrid' },
         { type: 'pricingSection' },
+        { type: 'sparklineEmbed' },
       ],
       description: 'Add and arrange components to build your page',
     },
