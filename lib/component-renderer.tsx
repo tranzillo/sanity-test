@@ -9,7 +9,7 @@ import SparklineEmbed from '@/components/sections/SparklineEmbed'
 interface ComponentData {
   _type: string
   _key: string
-  [key: string]: any
+  [key: string]: unknown
 }
 
 const componentMap = {

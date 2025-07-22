@@ -1,16 +1,22 @@
 import { sanityClient, sanityClientAuth } from './sanity'
 import { draftMode } from 'next/headers'
 
+interface ComponentData {
+  _type: string
+  _key: string
+  [key: string]: unknown
+}
+
 export interface SanityPage {
   _id: string
   title: string
   slug: { current: string }
   isHomepage: boolean
-  content: any[]
+  content: ComponentData[]
   seo?: {
     title?: string
     description?: string
-    image?: any
+    image?: unknown
     noIndex?: boolean
   }
   publishedAt: string
@@ -70,7 +76,7 @@ export async function getHomepage(): Promise<SanityPage | null> {
       try {
         // First, let's test a simple query to see if auth works
         const testQuery = `*[_type == "page"][0]._id`
-        const testResult = await sanityClientAuth.fetch(testQuery)
+        await sanityClientAuth.fetch(testQuery)
         // console.log('🔍 Test query result:', testResult)
         
         const page = await sanityClientAuth.fetch(
@@ -83,7 +89,7 @@ export async function getHomepage(): Promise<SanityPage | null> {
         )
         console.log('✅ Homepage fetched with stega encoding:', page?._id)
         return page || null
-      } catch (authError) {
+      } catch {
         // console.error('🔍 Auth client error:', authError)
         // console.error('🔍 Error details:', authError instanceof Error ? authError.message : 'Unknown error')
         
@@ -124,7 +130,7 @@ export async function getAllPageSlugs(): Promise<string[]> {
     `
     
     const pages = await sanityClient.fetch(query)
-    return pages.map((page: any) => page.slug)
+    return pages.map((page: {slug: string}) => page.slug)
   } catch (error) {
     console.error('Error fetching page slugs:', error)
     return []

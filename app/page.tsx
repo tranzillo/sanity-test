@@ -63,7 +63,7 @@ export default async function HomePage() {
   return (
     <div style={{ padding: '2rem', textAlign: 'center' }}>
       <h1>No homepage configured</h1>
-      <p>Go to Sanity Studio and create a page with "Is Homepage" checked.</p>
+      <p>Go to Sanity Studio and create a page with &quot;Is Homepage&quot; checked.</p>
     </div>
   )
 }

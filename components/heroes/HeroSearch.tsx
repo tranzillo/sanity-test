@@ -17,7 +17,7 @@ interface HeroSearchProps {
   searchPlaceholder?: string
   searchEndpoint: string
   backgroundImage?: {
-    asset?: any
+    asset?: unknown
     alt: string
   }
   backgroundColor?: string

@@ -5,7 +5,7 @@ import { renderComponents } from '@/lib/component-renderer'
 import { urlForImage } from '@/lib/sanity-image'
 
 interface PageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
@@ -14,7 +14,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const page = await getPageBySlug(params.slug)
+  const { slug } = await params
+  const page = await getPageBySlug(slug)
   
   if (!page) {
     return {
@@ -42,7 +43,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function DynamicPage({ params }: PageProps) {
-  const page = await getPageBySlug(params.slug)
+  const { slug } = await params
+  const page = await getPageBySlug(slug)
   
   if (!page) {
     notFound()

@@ -6,7 +6,7 @@ interface HeroBasicProps {
   headline: string
   subheadline?: string
   backgroundImage?: {
-    asset?: any
+    asset?: unknown
     alt: string
   }
   backgroundColor?: string

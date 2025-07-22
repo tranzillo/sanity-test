@@ -25,19 +25,19 @@ export async function POST(request: NextRequest) {
     let hasUpdates = false
     
     const updatedContent = await Promise.all(
-      content.map(async (item: any) => {
+      content.map(async (item: Record<string, unknown>) => {
         if (item._type === 'pricingSection' && item.syncWithApi && item.apiEndpoint) {
           try {
             console.log('Syncing pricing data from:', item.apiEndpoint)
             
-            const response = await fetch(item.apiEndpoint)
+            const response = await fetch(item.apiEndpoint as string)
             if (!response.ok) {
               throw new Error(`Failed to fetch: ${response.statusText}`)
             }
             
             const data = await response.json()
             
-            const transformedPlans = data.plans?.map((plan: any) => ({
+            const transformedPlans = data.plans?.map((plan: Record<string, unknown>) => ({
               _type: 'pricingPlan',
               _key: plan.id,
               id: plan.id,

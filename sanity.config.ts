@@ -1,9 +1,8 @@
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
-import {presentationTool, defineLocations} from 'sanity/presentation'
+import {presentationTool} from 'sanity/presentation'
 import {schemaTypes} from './sanity/schemas'
-import {syncPricingAction} from './sanity/actions/syncPricingAction'
 
 export default defineConfig({
   name: 'default',
@@ -29,15 +28,6 @@ export default defineConfig({
     types: schemaTypes,
   },
 
-  document: {
-    actions: (prev, context) => {
-      // Add sync action to page documents
-      if (context.schemaType === 'page') {
-        return [...prev, syncPricingAction]
-      }
-      return prev
-    },
-  },
 
   basePath: '/studio',
 })

@@ -6,7 +6,7 @@ import styles from './TrustedPartners.module.scss'
 interface Partner {
   name: string
   logo: {
-    asset?: any
+    asset?: unknown
     alt: string
   }
   website?: string

@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import styles from './SparklineEmbed.module.scss'
 
 interface SparklineEmbedProps {
@@ -13,6 +16,61 @@ export default function SparklineEmbed({
   height = 400,
   _path,
 }: SparklineEmbedProps) {
+  const [mounted, setMounted] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const handleIframeError = () => {
+    setError('Failed to load sparkline chart')
+  }
+
+  if (!mounted) {
+    return (
+      <section className={styles.sparklineEmbed} data-sanity={_path}>
+        <div className={styles.container}>
+          {title && (
+            <h2 className={styles.title} data-sanity={_path ? `${_path}.title` : undefined}>
+              {title}
+            </h2>
+          )}
+          <div 
+            className={styles.iframeWrapper}
+            style={{ height: `${height}px` }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#666' }}>
+              Loading chart...
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (error) {
+    return (
+      <section className={styles.sparklineEmbed} data-sanity={_path}>
+        <div className={styles.container}>
+          {title && (
+            <h2 className={styles.title} data-sanity={_path ? `${_path}.title` : undefined}>
+              {title}
+            </h2>
+          )}
+          <div 
+            className={styles.iframeWrapper}
+            style={{ height: `${height}px` }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#666' }}>
+              {error}
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section className={styles.sparklineEmbed} data-sanity={_path}>
       <div className={styles.container}>
@@ -24,15 +82,16 @@ export default function SparklineEmbed({
         <div 
           className={styles.iframeWrapper}
           style={{ height: `${height}px` }}
+          data-sanity={_path ? `${_path}.url` : undefined}
         >
           <iframe
             src={url}
             title={title}
             width="100%"
             height="100%"
-            frameBorder="0"
             className={styles.iframe}
-            data-sanity={_path ? `${_path}.url` : undefined}
+            style={{ border: 'none' }}
+            onError={handleIframeError}
           />
         </div>
       </div>

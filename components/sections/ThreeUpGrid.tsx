@@ -5,7 +5,7 @@ import styles from './ThreeUpGrid.module.scss'
 
 interface GridItem {
   image?: {
-    asset?: any
+    asset?: unknown
     alt: string
   }
   headline: string

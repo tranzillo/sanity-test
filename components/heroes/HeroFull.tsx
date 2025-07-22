@@ -16,7 +16,7 @@ interface HeroFullProps {
   subheadline?: string
   buttons?: Button[]
   image?: {
-    asset?: any
+    asset?: unknown
     alt: string
   }
   alignment?: 'left' | 'center' | 'right'
@@ -32,7 +32,6 @@ export default function HeroFull({
   image,
   alignment = 'left',
   theme = 'light',
-  _path,
 }: HeroFullProps) {
   const heroClasses = [
     styles.hero,
