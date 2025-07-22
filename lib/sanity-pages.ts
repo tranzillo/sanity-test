@@ -103,7 +103,6 @@ export async function getHomepage(): Promise<SanityPage | null> {
               useCdn: false
             }
           )
-          console.log('✅ Fallback fetch with stega:', page?._id)
           return page || null
         } catch (fallbackError) {
           console.error('🔍 Fallback error:', fallbackError)

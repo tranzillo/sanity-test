@@ -72,7 +72,7 @@ export default function ThreeUpGrid({
             const itemPath = _path ? `${_path}.items[${index}]` : undefined
             return (
               <div key={index} className={styles.gridItem} data-sanity={itemPath}>
-                {item.image?.asset && (
+                {item.image?.asset ? (
                   <div className={styles.itemImage} data-sanity={itemPath ? `${itemPath}.image` : undefined}>
                     <Image
                       src={urlForImage(item.image).width(400).height(250).url()}
@@ -80,7 +80,7 @@ export default function ThreeUpGrid({
                       fill
                     />
                   </div>
-                )}
+                ) : null}
                 
                 <h3 className={styles.itemHeadline} data-sanity={itemPath ? `${itemPath}.headline` : undefined}>
                   {item.headline}

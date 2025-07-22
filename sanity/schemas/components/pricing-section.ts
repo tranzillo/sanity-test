@@ -1,7 +1,12 @@
+import FieldLevelSync from '../../components/FieldLevelSync'
+
 export default {
   name: 'pricingSection',
   title: 'Pricing Section',
   type: 'object',
+  components: {
+    input: FieldLevelSync
+  },
   fields: [
     {
       name: 'title',
@@ -19,16 +24,8 @@ export default {
       name: 'syncWithApi',
       title: 'Sync with API',
       type: 'boolean',
-      description: 'When enabled, use the "Sync Pricing Data" button in the document toolbar to fetch data from the API',
+      description: 'When enabled, pricing data will be synced from the API and fields will be read-only',
       initialValue: false,
-    },
-    {
-      name: 'apiEndpoint',
-      title: 'API Endpoint',
-      type: 'string',
-      description: 'The endpoint to fetch pricing data from',
-      initialValue: 'http://localhost:3000/api/pricing-data',
-      hidden: ({ parent }: any) => !parent?.syncWithApi,
     },
     {
       name: 'lastSynced',
@@ -38,17 +35,11 @@ export default {
       hidden: ({ parent }: any) => !parent?.syncWithApi,
     },
     {
-      name: 'syncInstructions',
-      title: 'How to Sync',
-      type: 'string',
-      initialValue: 'To sync pricing data, copy the document ID and use the sync API endpoint',
-      readOnly: true,
-      hidden: ({ parent }: any) => !parent?.syncWithApi,
-    },
-    {
       name: 'pricingPlans',
       title: 'Pricing Plans',
       type: 'array',
+      description: 'When "Sync with API" is enabled, use the sync button to populate these fields. When disabled, you can manually edit these plans.',
+      readOnly: ({ parent }: any) => parent?.syncWithApi,
       of: [
         {
           type: 'object',

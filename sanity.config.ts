@@ -6,7 +6,7 @@ import {schemaTypes} from './sanity/schemas'
 
 export default defineConfig({
   name: 'default',
-  title: 'Plasmid Marketing Site',
+  title: 'Sanity Test',
 
   projectId: 'bvrcg8jz',
   dataset: 'production',

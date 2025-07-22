@@ -17,53 +17,21 @@ export default function SparklineEmbed({
   _path,
 }: SparklineEmbedProps) {
   const [mounted, setMounted] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  const handleIframeError = () => {
-    setError('Failed to load sparkline chart')
-  }
-
   if (!mounted) {
     return (
-      <section className={styles.sparklineEmbed} data-sanity={_path}>
+      <section className={styles.sparklineEmbed}>
         <div className={styles.container}>
-          {title && (
-            <h2 className={styles.title} data-sanity={_path ? `${_path}.title` : undefined}>
-              {title}
-            </h2>
-          )}
           <div 
             className={styles.iframeWrapper}
             style={{ height: `${height}px` }}
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#666' }}>
               Loading chart...
-            </div>
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  if (error) {
-    return (
-      <section className={styles.sparklineEmbed} data-sanity={_path}>
-        <div className={styles.container}>
-          {title && (
-            <h2 className={styles.title} data-sanity={_path ? `${_path}.title` : undefined}>
-              {title}
-            </h2>
-          )}
-          <div 
-            className={styles.iframeWrapper}
-            style={{ height: `${height}px` }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#666' }}>
-              {error}
             </div>
           </div>
         </div>
@@ -91,7 +59,6 @@ export default function SparklineEmbed({
             height="100%"
             className={styles.iframe}
             style={{ border: 'none' }}
-            onError={handleIframeError}
           />
         </div>
       </div>

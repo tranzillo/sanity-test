@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
   
   return {
-    title: 'Plasmid - Build Amazing Marketing Sites',
+    title: 'Sanity-Test',
     description: 'Create beautiful, performant websites with Next.js and Sanity CMS.',
   }
 }

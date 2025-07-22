@@ -38,6 +38,7 @@ export function renderComponent(component: ComponentData, basePath?: string, ind
     : undefined
   
   return (
+    // @ts-expect-error - Dynamic component props cannot be statically typed
     <Component 
       key={_key} 
       {...props} 
