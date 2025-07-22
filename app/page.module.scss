@@ -1,0 +1,7 @@
+@import '../styles/base/variables';
+@import '../styles/base/mixins';
+
+// Simple page wrapper - components handle their own spacing
+.pageWrapper {
+  min-height: 100vh;
+}

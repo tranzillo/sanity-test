@@ -1,0 +1,55 @@
+{
+  "lastUpdated": "2025-01-22T10:00:00Z",
+  "currency": "USD",
+  "plans": [
+    {
+      "id": "starter",
+      "name": "Starter Plan",
+      "description": "Perfect for individuals and small projects",
+      "price": 19,
+      "billing": "monthly",
+      "features": [
+        "Up to 3 projects",
+        "1GB storage",
+        "Basic analytics",
+        "Email support"
+      ],
+      "highlighted": false,
+      "ctaText": "Start Free Trial"
+    },
+    {
+      "id": "professional",
+      "name": "Professional Plan",
+      "description": "Ideal for growing teams and businesses",
+      "price": 49,
+      "billing": "monthly",
+      "features": [
+        "Unlimited projects",
+        "10GB storage",
+        "Advanced analytics",
+        "Priority support",
+        "Custom integrations",
+        "Team collaboration"
+      ],
+      "highlighted": true,
+      "ctaText": "Get Started"
+    },
+    {
+      "id": "enterprise",
+      "name": "Enterprise Plan",
+      "description": "For large organizations with custom needs",
+      "price": null,
+      "billing": "custom",
+      "features": [
+        "Everything in Professional",
+        "Unlimited storage",
+        "Dedicated account manager",
+        "24/7 phone support",
+        "Custom SLA",
+        "Advanced security features"
+      ],
+      "highlighted": false,
+      "ctaText": "Contact Sales"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+@import '../../styles/base/variables';
+@import '../../styles/base/mixins';
+
+.hero {
+  @include section();
+  position: relative;
+  overflow: hidden;
+}
+
+.backgroundImage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  
+  &.light {
+    background-color: rgba($color-white, 0.7);
+  }
+  
+  &.dark {
+    background-color: rgba($color-black, 0.5);
+  }
+}
+
+.container {
+  @include container();
+  position: relative;
+  z-index: 10;
+}
+
+.content {
+  text-align: center;
+}
+
+.title {
+  @include heading('2xl');
+  margin-bottom: $spacing-4;
+  
+  &.light {
+    color: $color-gray-900;
+  }
+  
+  &.dark {
+    color: $color-white;
+  }
+}
+
+.subtitle {
+  font-size: $font-size-xl;
+  margin-bottom: $spacing-8;
+  
+  &.light {
+    color: $color-gray-600;
+  }
+  
+  &.dark {
+    color: $color-gray-300;
+  }
+}
+
+.searchForm {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.searchContainer {
+  display: flex;
+  gap: $spacing-3;
+}
+
+.categorySelect {
+  @include form-input();
+  
+  &.light {
+    @include form-input('light');
+  }
+  
+  &.dark {
+    @include form-input('dark');
+  }
+}
+
+.inputContainer {
+  position: relative;
+  flex: 1;
+}
+
+.searchInput {
+  @include form-input();
+  padding-right: $spacing-12;
+  
+  &.light {
+    @include form-input('light');
+  }
+  
+  &.dark {
+    @include form-input('dark');
+  }
+}
+
+.searchIconButton {
+  position: absolute;
+  right: $spacing-2;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: $spacing-2;
+  background: none;
+  border: none;
+  color: $color-gray-400;
+  cursor: pointer;
+  transition: color $transition-fast;
+  
+  &:hover {
+    color: $color-gray-600;
+  }
+  
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+.searchButton {
+  @include button-primary();
+  
+  &.light {
+    @include button-primary('light');
+  }
+  
+  &.dark {
+    @include button-primary('dark');
+  }
+}

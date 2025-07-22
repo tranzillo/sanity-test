@@ -1,0 +1,201 @@
+@import 'variables';
+
+// Container
+@mixin container {
+  max-width: $container-max-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+}
+
+// Text Alignment
+@mixin text-align($align) {
+  text-align: $align;
+  
+  @if $align == center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// Button Base
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3 $spacing-6;
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-base;
+  border-radius: $radius-md;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all $transition-base;
+  text-decoration: none;
+  
+  &:focus {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Button Variants
+@mixin button-primary($theme: 'light') {
+  @include button-base;
+  
+  @if $theme == 'light' {
+    background-color: $color-primary;
+    color: $color-white;
+    
+    &:hover:not(:disabled) {
+      background-color: $color-primary-dark;
+    }
+  } @else {
+    background-color: $color-white;
+    color: $color-gray-900;
+    
+    &:hover:not(:disabled) {
+      background-color: $color-gray-100;
+    }
+  }
+}
+
+@mixin button-secondary($theme: 'light') {
+  @include button-base;
+  
+  @if $theme == 'light' {
+    background-color: $color-gray-100;
+    color: $color-gray-700;
+    
+    &:hover:not(:disabled) {
+      background-color: $color-gray-200;
+    }
+  } @else {
+    background-color: $color-gray-700;
+    color: $color-white;
+    
+    &:hover:not(:disabled) {
+      background-color: $color-gray-600;
+    }
+  }
+}
+
+@mixin button-outline($theme: 'light') {
+  @include button-base;
+  background-color: transparent;
+  
+  @if $theme == 'light' {
+    border-color: $color-gray-300;
+    color: $color-gray-700;
+    
+    &:hover:not(:disabled) {
+      background-color: $color-gray-50;
+    }
+  } @else {
+    border-color: $color-gray-600;
+    color: $color-white;
+    
+    &:hover:not(:disabled) {
+      background-color: $color-gray-800;
+    }
+  }
+}
+
+// Typography
+@mixin heading($size: 'xl') {
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  
+  @if $size == 'xs' {
+    font-size: $font-size-lg;
+  } @else if $size == 'sm' {
+    font-size: $font-size-xl;
+  } @else if $size == 'md' {
+    font-size: $font-size-2xl;
+  } @else if $size == 'lg' {
+    font-size: $font-size-3xl;
+  } @else if $size == 'xl' {
+    font-size: $font-size-4xl;
+  } @else if $size == '2xl' {
+    font-size: $font-size-5xl;
+  } @else if $size == '3xl' {
+    font-size: $font-size-6xl;
+  }
+}
+
+// Form Input
+@mixin form-input($theme: 'light') {
+  display: block;
+  width: 100%;
+  padding: $spacing-3 $spacing-4;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  border-radius: $radius-md;
+  border: 1px solid;
+  transition: all $transition-fast;
+  
+  @if $theme == 'light' {
+    background-color: $color-white;
+    color: $color-gray-900;
+    border-color: $color-gray-300;
+    
+    &::placeholder {
+      color: $color-gray-400;
+    }
+    
+    &:focus {
+      outline: 2px solid $color-primary;
+      outline-offset: 2px;
+      border-color: $color-primary;
+    }
+  } @else {
+    background-color: $color-gray-800;
+    color: $color-white;
+    border-color: $color-gray-600;
+    
+    &::placeholder {
+      color: $color-gray-500;
+    }
+    
+    &:focus {
+      outline: 2px solid $color-primary-light;
+      outline-offset: 2px;
+      border-color: $color-primary-light;
+    }
+  }
+}
+
+// Section
+@mixin section($bg: $color-white, $color: $color-gray-900) {
+  position: relative;
+  background-color: $bg;
+  color: $color;
+  padding-top: $spacing-24;
+  padding-bottom: $spacing-24;
+}
+
+// Overlay
+@mixin overlay($opacity: 0.5) {
+  position: absolute;
+  inset: 0;
+  background-color: rgba($color-black, $opacity);
+}
+
+// Visually Hidden (for accessibility)
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Data Sync Tool</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #0066cc;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #0052a3;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .result.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .result.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .instructions {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #0066cc;
+        }
+        .instructions ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .instructions li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Pricing Data Sync Tool</h1>
+        
+        <div class="instructions">
+            <h3>How to use:</h3>
+            <ol>
+                <li>Go to Sanity Studio and edit a page with a Pricing Section</li>
+                <li>Enable "Sync with API" on the pricing section</li>
+                <li>Copy the document ID from the URL (looks like: <code>002bac8c-f1a4-4304-9ed3-3a56d8161a4a</code>)</li>
+                <li>Paste it below and click "Sync Now"</li>
+            </ol>
+        </div>
+
+        <form id="syncForm">
+            <div class="form-group">
+                <label for="documentId">Document ID:</label>
+                <input 
+                    type="text" 
+                    id="documentId" 
+                    placeholder="002bac8c-f1a4-4304-9ed3-3a56d8161a4a"
+                    required
+                >
+            </div>
+            
+            <button type="submit" id="syncBtn">
+                🔄 Sync Pricing Data
+            </button>
+        </form>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('syncForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const documentId = document.getElementById('documentId').value.trim();
+            const syncBtn = document.getElementById('syncBtn');
+            const result = document.getElementById('result');
+            
+            if (!documentId) {
+                showResult('Please enter a document ID', 'error');
+                return;
+            }
+
+            // Show loading state
+            syncBtn.disabled = true;
+            syncBtn.textContent = '⏳ Syncing...';
+            result.style.display = 'none';
+
+            try {
+                const response = await fetch(`/api/sync-pricing?documentId=${encodeURIComponent(documentId)}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showResult(`✅ ${data.message}`, 'success');
+                } else {
+                    showResult(`❌ ${data.error}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ Network error: ${error.message}`, 'error');
+            } finally {
+                // Reset button
+                syncBtn.disabled = false;
+                syncBtn.textContent = '🔄 Sync Pricing Data';
+            }
+        });
+
+        function showResult(message, type) {
+            const result = document.getElementById('result');
+            result.textContent = message;
+            result.className = `result ${type}`;
+            result.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
